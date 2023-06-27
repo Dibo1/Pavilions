@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище PavilionModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cities$">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Employees$">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeePhoto" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Malls$">
+          <Key>
+            <PropertyRef Name="MallId" />
+          </Key>
+          <Property Name="MallId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MallName" Type="nvarchar" MaxLength="255" />
+          <Property Name="MallStatusId" Type="int" />
+          <Property Name="PavilionsCount" Type="int" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="BuildingCost" Type="float" />
+          <Property Name="ValueAddedFactor" Type="float" />
+          <Property Name="LevelsCount" Type="int" />
+          <Property Name="MallPicture" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="MallStatuses$">
+          <Key>
+            <PropertyRef Name="MallStatusId" />
+          </Key>
+          <Property Name="MallStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MallStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Pavilions$">
+          <Key>
+            <PropertyRef Name="PavilionId" />
+          </Key>
+          <Property Name="PavilionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PavilionNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="MallId" Type="int" />
+          <Property Name="LevelNumber" Type="int" />
+          <Property Name="PavilionStatusId" Type="int" />
+          <Property Name="Area" Type="float" />
+          <Property Name="SquareMeterCost" Type="float" />
+          <Property Name="ValueAddedFactor" Type="float" />
+        </EntityType>
+        <EntityType Name="PavilionsLease$">
+          <Key>
+            <PropertyRef Name="LeaseId" />
+          </Key>
+          <Property Name="LeaseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantId" Type="int" />
+          <Property Name="MallId" Type="int" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="PavilionId" Type="int" />
+          <Property Name="LeaseStart" Type="datetime" />
+          <Property Name=" LeaseEnd" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PavilionStatuses$">
+          <Key>
+            <PropertyRef Name="PavilionStatusId" />
+          </Key>
+          <Property Name="PavilionStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PavilionStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Roles$">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tenants$">
+          <Key>
+            <PropertyRef Name="TenantId" />
+          </Key>
+          <Property Name="TenantId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RentId" Type="int" />
+          <Property Name="TenantName" Type="nvarchar" MaxLength="50" />
+          <Property Name="TenantPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="TenantAddress" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Pavilion.dbo.MallsList" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="MallsList">
+          <Key>
+            <PropertyRef Name="MallId" />
+          </Key>
+          <Property Name="MallId" Type="int" Nullable="false" />
+          <Property Name="MallName" Type="nvarchar" MaxLength="255" />
+          <Property Name="MallStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="PavilionsCount" Type="int" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BuildingCost" Type="float" />
+          <Property Name="ValueAddedFactor" Type="float" />
+          <Property Name="LevelsCount" Type="int" />
+          <Property Name="MallPicture" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Employees$_Roles$">
+          <End Role="Roles$" Type="Self.Roles$" Multiplicity="0..1" />
+          <End Role="Employees$" Type="Self.Employees$" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles$">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Employees$">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Malls$_Cities$">
+          <End Role="Cities$" Type="Self.Cities$" Multiplicity="0..1" />
+          <End Role="Malls$" Type="Self.Malls$" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities$">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="Malls$">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Malls$_MallStatuses$">
+          <End Role="MallStatuses$" Type="Self.MallStatuses$" Multiplicity="0..1" />
+          <End Role="Malls$" Type="Self.Malls$" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MallStatuses$">
+              <PropertyRef Name="MallStatusId" />
+            </Principal>
+            <Dependent Role="Malls$">
+              <PropertyRef Name="MallStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pavilions$_Malls$">
+          <End Role="Malls$" Type="Self.Malls$" Multiplicity="0..1" />
+          <End Role="Pavilions$" Type="Self.Pavilions$" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Malls$">
+              <PropertyRef Name="MallId" />
+            </Principal>
+            <Dependent Role="Pavilions$">
+              <PropertyRef Name="MallId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pavilions$_PavilionStatuses$1">
+          <End Role="PavilionStatuses$" Type="Self.PavilionStatuses$" Multiplicity="0..1" />
+          <End Role="Pavilions$" Type="Self.Pavilions$" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PavilionStatuses$">
+              <PropertyRef Name="PavilionStatusId" />
+            </Principal>
+            <Dependent Role="Pavilions$">
+              <PropertyRef Name="PavilionStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PavilionsLease$_Employees$">
+          <End Role="Employees$" Type="Self.Employees$" Multiplicity="0..1" />
+          <End Role="PavilionsLease$" Type="Self.PavilionsLease$" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees$">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="PavilionsLease$">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PavilionsLease$_Malls$">
+          <End Role="Malls$" Type="Self.Malls$" Multiplicity="0..1" />
+          <End Role="PavilionsLease$" Type="Self.PavilionsLease$" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Malls$">
+              <PropertyRef Name="MallId" />
+            </Principal>
+            <Dependent Role="PavilionsLease$">
+              <PropertyRef Name="MallId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PavilionsLease$_Pavilions$">
+          <End Role="Pavilions$" Type="Self.Pavilions$" Multiplicity="0..1" />
+          <End Role="PavilionsLease$" Type="Self.PavilionsLease$" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pavilions$">
+              <PropertyRef Name="PavilionId" />
+            </Principal>
+            <Dependent Role="PavilionsLease$">
+              <PropertyRef Name="PavilionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PavilionsLease$_Tenants$">
+          <End Role="Tenants$" Type="Self.Tenants$" Multiplicity="0..1" />
+          <End Role="PavilionsLease$" Type="Self.PavilionsLease$" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenants$">
+              <PropertyRef Name="TenantId" />
+            </Principal>
+            <Dependent Role="PavilionsLease$">
+              <PropertyRef Name="TenantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PavilionModelContainer">
+          <EntitySet Name="Cities$" EntityType="Self.Cities$" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees$" EntityType="Self.Employees$" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Malls$" EntityType="Self.Malls$" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MallStatuses$" EntityType="Self.MallStatuses$" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pavilions$" EntityType="Self.Pavilions$" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PavilionsLease$" EntityType="Self.PavilionsLease$" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PavilionStatuses$" EntityType="Self.PavilionStatuses$" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles$" EntityType="Self.Roles$" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tenants$" EntityType="Self.Tenants$" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MallsList" EntityType="Self.MallsList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MallsList].[MallId] AS [MallId], 
+    [MallsList].[MallName] AS [MallName], 
+    [MallsList].[MallStatus] AS [MallStatus], 
+    [MallsList].[PavilionsCount] AS [PavilionsCount], 
+    [MallsList].[CityName] AS [CityName], 
+    [MallsList].[BuildingCost] AS [BuildingCost], 
+    [MallsList].[ValueAddedFactor] AS [ValueAddedFactor], 
+    [MallsList].[LevelsCount] AS [LevelsCount], 
+    [MallsList].[MallPicture] AS [MallPicture]
+    FROM [dbo].[MallsList] AS [MallsList]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Employees$_Roles$" Association="Self.FK_Employees$_Roles$">
+            <End Role="Roles$" EntitySet="Roles$" />
+            <End Role="Employees$" EntitySet="Employees$" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Malls$_Cities$" Association="Self.FK_Malls$_Cities$">
+            <End Role="Cities$" EntitySet="Cities$" />
+            <End Role="Malls$" EntitySet="Malls$" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Malls$_MallStatuses$" Association="Self.FK_Malls$_MallStatuses$">
+            <End Role="MallStatuses$" EntitySet="MallStatuses$" />
+            <End Role="Malls$" EntitySet="Malls$" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pavilions$_Malls$" Association="Self.FK_Pavilions$_Malls$">
+            <End Role="Malls$" EntitySet="Malls$" />
+            <End Role="Pavilions$" EntitySet="Pavilions$" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pavilions$_PavilionStatuses$1" Association="Self.FK_Pavilions$_PavilionStatuses$1">
+            <End Role="PavilionStatuses$" EntitySet="PavilionStatuses$" />
+            <End Role="Pavilions$" EntitySet="Pavilions$" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PavilionsLease$_Employees$" Association="Self.FK_PavilionsLease$_Employees$">
+            <End Role="Employees$" EntitySet="Employees$" />
+            <End Role="PavilionsLease$" EntitySet="PavilionsLease$" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PavilionsLease$_Malls$" Association="Self.FK_PavilionsLease$_Malls$">
+            <End Role="Malls$" EntitySet="Malls$" />
+            <End Role="PavilionsLease$" EntitySet="PavilionsLease$" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PavilionsLease$_Pavilions$" Association="Self.FK_PavilionsLease$_Pavilions$">
+            <End Role="Pavilions$" EntitySet="Pavilions$" />
+            <End Role="PavilionsLease$" EntitySet="PavilionsLease$" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PavilionsLease$_Tenants$" Association="Self.FK_PavilionsLease$_Tenants$">
+            <End Role="Tenants$" EntitySet="Tenants$" />
+            <End Role="PavilionsLease$" EntitySet="PavilionsLease$" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PavilionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cities_">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Malls_" Relationship="Self.FK_Malls__Cities_" FromRole="Cities_" ToRole="Malls_" />
+        </EntityType>
+        <EntityType Name="Employees_">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Roles_" Relationship="Self.FK_Employees__Roles_" FromRole="Employees_" ToRole="Roles_" />
+          <NavigationProperty Name="PavilionsLease_" Relationship="Self.FK_PavilionsLease__Employees_" FromRole="Employees_" ToRole="PavilionsLease_" />
+        </EntityType>
+        <EntityType Name="Malls_">
+          <Key>
+            <PropertyRef Name="MallId" />
+          </Key>
+          <Property Name="MallId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MallName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MallStatusId" Type="Int32" />
+          <Property Name="PavilionsCount" Type="Int32" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="BuildingCost" Type="Double" />
+          <Property Name="ValueAddedFactor" Type="Double" />
+          <Property Name="LevelsCount" Type="Int32" />
+          <Property Name="MallPicture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Cities_" Relationship="Self.FK_Malls__Cities_" FromRole="Malls_" ToRole="Cities_" />
+          <NavigationProperty Name="MallStatuses_" Relationship="Self.FK_Malls__MallStatuses_" FromRole="Malls_" ToRole="MallStatuses_" />
+          <NavigationProperty Name="Pavilions_" Relationship="Self.FK_Pavilions__Malls_" FromRole="Malls_" ToRole="Pavilions_" />
+          <NavigationProperty Name="PavilionsLease_" Relationship="Self.FK_PavilionsLease__Malls_" FromRole="Malls_" ToRole="PavilionsLease_" />
+        </EntityType>
+        <EntityType Name="MallStatuses_">
+          <Key>
+            <PropertyRef Name="MallStatusId" />
+          </Key>
+          <Property Name="MallStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MallStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Malls_" Relationship="Self.FK_Malls__MallStatuses_" FromRole="MallStatuses_" ToRole="Malls_" />
+        </EntityType>
+        <EntityType Name="Pavilions_">
+          <Key>
+            <PropertyRef Name="PavilionId" />
+          </Key>
+          <Property Name="PavilionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PavilionNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MallId" Type="Int32" />
+          <Property Name="LevelNumber" Type="Int32" />
+          <Property Name="PavilionStatusId" Type="Int32" />
+          <Property Name="Area" Type="Double" />
+          <Property Name="SquareMeterCost" Type="Double" />
+          <Property Name="ValueAddedFactor" Type="Double" />
+          <NavigationProperty Name="Malls_" Relationship="Self.FK_Pavilions__Malls_" FromRole="Pavilions_" ToRole="Malls_" />
+          <NavigationProperty Name="PavilionStatuses_" Relationship="Self.FK_Pavilions__PavilionStatuses_1" FromRole="Pavilions_" ToRole="PavilionStatuses_" />
+          <NavigationProperty Name="PavilionsLease_" Relationship="Self.FK_PavilionsLease__Pavilions_" FromRole="Pavilions_" ToRole="PavilionsLease_" />
+        </EntityType>
+        <EntityType Name="PavilionsLease_">
+          <Key>
+            <PropertyRef Name="LeaseId" />
+          </Key>
+          <Property Name="LeaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" />
+          <Property Name="MallId" Type="Int32" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="PavilionId" Type="Int32" />
+          <Property Name="LeaseStart" Type="DateTime" Precision="3" />
+          <Property Name="C_LeaseEnd" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employees_" Relationship="Self.FK_PavilionsLease__Employees_" FromRole="PavilionsLease_" ToRole="Employees_" />
+          <NavigationProperty Name="Malls_" Relationship="Self.FK_PavilionsLease__Malls_" FromRole="PavilionsLease_" ToRole="Malls_" />
+          <NavigationProperty Name="Pavilions_" Relationship="Self.FK_PavilionsLease__Pavilions_" FromRole="PavilionsLease_" ToRole="Pavilions_" />
+          <NavigationProperty Name="Tenants_" Relationship="Self.FK_PavilionsLease__Tenants_" FromRole="PavilionsLease_" ToRole="Tenants_" />
+        </EntityType>
+        <EntityType Name="PavilionStatuses_">
+          <Key>
+            <PropertyRef Name="PavilionStatusId" />
+          </Key>
+          <Property Name="PavilionStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PavilionStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pavilions_" Relationship="Self.FK_Pavilions__PavilionStatuses_1" FromRole="PavilionStatuses_" ToRole="Pavilions_" />
+        </EntityType>
+        <EntityType Name="Roles_">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees_" Relationship="Self.FK_Employees__Roles_" FromRole="Roles_" ToRole="Employees_" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tenants_">
+          <Key>
+            <PropertyRef Name="TenantId" />
+          </Key>
+          <Property Name="TenantId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RentId" Type="Int32" />
+          <Property Name="TenantName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TenantPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TenantAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PavilionsLease_" Relationship="Self.FK_PavilionsLease__Tenants_" FromRole="Tenants_" ToRole="PavilionsLease_" />
+        </EntityType>
+        <EntityType Name="MallsList">
+          <Key>
+            <PropertyRef Name="MallId" />
+          </Key>
+          <Property Name="MallId" Type="Int32" Nullable="false" />
+          <Property Name="MallName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MallStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PavilionsCount" Type="Int32" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuildingCost" Type="Double" />
+          <Property Name="ValueAddedFactor" Type="Double" />
+          <Property Name="LevelsCount" Type="Int32" />
+          <Property Name="MallPicture" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Malls__Cities_">
+          <End Role="Cities_" Type="Self.Cities_" Multiplicity="0..1" />
+          <End Role="Malls_" Type="Self.Malls_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities_">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="Malls_">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees__Roles_">
+          <End Role="Roles_" Type="Self.Roles_" Multiplicity="0..1" />
+          <End Role="Employees_" Type="Self.Employees_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles_">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Employees_">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PavilionsLease__Employees_">
+          <End Role="Employees_" Type="Self.Employees_" Multiplicity="0..1" />
+          <End Role="PavilionsLease_" Type="Self.PavilionsLease_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees_">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="PavilionsLease_">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Malls__MallStatuses_">
+          <End Role="MallStatuses_" Type="Self.MallStatuses_" Multiplicity="0..1" />
+          <End Role="Malls_" Type="Self.Malls_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MallStatuses_">
+              <PropertyRef Name="MallStatusId" />
+            </Principal>
+            <Dependent Role="Malls_">
+              <PropertyRef Name="MallStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pavilions__Malls_">
+          <End Role="Malls_" Type="Self.Malls_" Multiplicity="0..1" />
+          <End Role="Pavilions_" Type="Self.Pavilions_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Malls_">
+              <PropertyRef Name="MallId" />
+            </Principal>
+            <Dependent Role="Pavilions_">
+              <PropertyRef Name="MallId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PavilionsLease__Malls_">
+          <End Role="Malls_" Type="Self.Malls_" Multiplicity="0..1" />
+          <End Role="PavilionsLease_" Type="Self.PavilionsLease_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Malls_">
+              <PropertyRef Name="MallId" />
+            </Principal>
+            <Dependent Role="PavilionsLease_">
+              <PropertyRef Name="MallId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pavilions__PavilionStatuses_1">
+          <End Role="PavilionStatuses_" Type="Self.PavilionStatuses_" Multiplicity="0..1" />
+          <End Role="Pavilions_" Type="Self.Pavilions_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PavilionStatuses_">
+              <PropertyRef Name="PavilionStatusId" />
+            </Principal>
+            <Dependent Role="Pavilions_">
+              <PropertyRef Name="PavilionStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PavilionsLease__Pavilions_">
+          <End Role="Pavilions_" Type="Self.Pavilions_" Multiplicity="0..1" />
+          <End Role="PavilionsLease_" Type="Self.PavilionsLease_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pavilions_">
+              <PropertyRef Name="PavilionId" />
+            </Principal>
+            <Dependent Role="PavilionsLease_">
+              <PropertyRef Name="PavilionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PavilionsLease__Tenants_">
+          <End Role="Tenants_" Type="Self.Tenants_" Multiplicity="0..1" />
+          <End Role="PavilionsLease_" Type="Self.PavilionsLease_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenants_">
+              <PropertyRef Name="TenantId" />
+            </Principal>
+            <Dependent Role="PavilionsLease_">
+              <PropertyRef Name="TenantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PavilionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cities_" EntityType="Self.Cities_" />
+          <EntitySet Name="Employees_" EntityType="Self.Employees_" />
+          <EntitySet Name="Malls_" EntityType="Self.Malls_" />
+          <EntitySet Name="MallStatuses_" EntityType="Self.MallStatuses_" />
+          <EntitySet Name="Pavilions_" EntityType="Self.Pavilions_" />
+          <EntitySet Name="PavilionsLease_" EntityType="Self.PavilionsLease_" />
+          <EntitySet Name="PavilionStatuses_" EntityType="Self.PavilionStatuses_" />
+          <EntitySet Name="Roles_" EntityType="Self.Roles_" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Tenants_" EntityType="Self.Tenants_" />
+          <EntitySet Name="MallsList" EntityType="Self.MallsList" />
+          <AssociationSet Name="FK_Malls__Cities_" Association="Self.FK_Malls__Cities_">
+            <End Role="Cities_" EntitySet="Cities_" />
+            <End Role="Malls_" EntitySet="Malls_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees__Roles_" Association="Self.FK_Employees__Roles_">
+            <End Role="Roles_" EntitySet="Roles_" />
+            <End Role="Employees_" EntitySet="Employees_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PavilionsLease__Employees_" Association="Self.FK_PavilionsLease__Employees_">
+            <End Role="Employees_" EntitySet="Employees_" />
+            <End Role="PavilionsLease_" EntitySet="PavilionsLease_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Malls__MallStatuses_" Association="Self.FK_Malls__MallStatuses_">
+            <End Role="MallStatuses_" EntitySet="MallStatuses_" />
+            <End Role="Malls_" EntitySet="Malls_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pavilions__Malls_" Association="Self.FK_Pavilions__Malls_">
+            <End Role="Malls_" EntitySet="Malls_" />
+            <End Role="Pavilions_" EntitySet="Pavilions_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PavilionsLease__Malls_" Association="Self.FK_PavilionsLease__Malls_">
+            <End Role="Malls_" EntitySet="Malls_" />
+            <End Role="PavilionsLease_" EntitySet="PavilionsLease_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pavilions__PavilionStatuses_1" Association="Self.FK_Pavilions__PavilionStatuses_1">
+            <End Role="PavilionStatuses_" EntitySet="PavilionStatuses_" />
+            <End Role="Pavilions_" EntitySet="Pavilions_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PavilionsLease__Pavilions_" Association="Self.FK_PavilionsLease__Pavilions_">
+            <End Role="Pavilions_" EntitySet="Pavilions_" />
+            <End Role="PavilionsLease_" EntitySet="PavilionsLease_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PavilionsLease__Tenants_" Association="Self.FK_PavilionsLease__Tenants_">
+            <End Role="Tenants_" EntitySet="Tenants_" />
+            <End Role="PavilionsLease_" EntitySet="PavilionsLease_" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PavilionModelContainer" CdmEntityContainer="PavilionEntities">
+          <EntitySetMapping Name="Cities_">
+            <EntityTypeMapping TypeName="PavilionModel.Cities_">
+              <MappingFragment StoreEntitySet="Cities$">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees_">
+            <EntityTypeMapping TypeName="PavilionModel.Employees_">
+              <MappingFragment StoreEntitySet="Employees$">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="EmployeePhoto" ColumnName="EmployeePhoto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Malls_">
+            <EntityTypeMapping TypeName="PavilionModel.Malls_">
+              <MappingFragment StoreEntitySet="Malls$">
+                <ScalarProperty Name="MallId" ColumnName="MallId" />
+                <ScalarProperty Name="MallName" ColumnName="MallName" />
+                <ScalarProperty Name="MallStatusId" ColumnName="MallStatusId" />
+                <ScalarProperty Name="PavilionsCount" ColumnName="PavilionsCount" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="BuildingCost" ColumnName="BuildingCost" />
+                <ScalarProperty Name="ValueAddedFactor" ColumnName="ValueAddedFactor" />
+                <ScalarProperty Name="LevelsCount" ColumnName="LevelsCount" />
+                <ScalarProperty Name="MallPicture" ColumnName="MallPicture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MallStatuses_">
+            <EntityTypeMapping TypeName="PavilionModel.MallStatuses_">
+              <MappingFragment StoreEntitySet="MallStatuses$">
+                <ScalarProperty Name="MallStatusId" ColumnName="MallStatusId" />
+                <ScalarProperty Name="MallStatus" ColumnName="MallStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pavilions_">
+            <EntityTypeMapping TypeName="PavilionModel.Pavilions_">
+              <MappingFragment StoreEntitySet="Pavilions$">
+                <ScalarProperty Name="PavilionId" ColumnName="PavilionId" />
+                <ScalarProperty Name="PavilionNumber" ColumnName="PavilionNumber" />
+                <ScalarProperty Name="MallId" ColumnName="MallId" />
+                <ScalarProperty Name="LevelNumber" ColumnName="LevelNumber" />
+                <ScalarProperty Name="PavilionStatusId" ColumnName="PavilionStatusId" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="SquareMeterCost" ColumnName="SquareMeterCost" />
+                <ScalarProperty Name="ValueAddedFactor" ColumnName="ValueAddedFactor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PavilionsLease_">
+            <EntityTypeMapping TypeName="PavilionModel.PavilionsLease_">
+              <MappingFragment StoreEntitySet="PavilionsLease$">
+                <ScalarProperty Name="LeaseId" ColumnName="LeaseId" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="MallId" ColumnName="MallId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="PavilionId" ColumnName="PavilionId" />
+                <ScalarProperty Name="LeaseStart" ColumnName="LeaseStart" />
+                <ScalarProperty Name="C_LeaseEnd" ColumnName=" LeaseEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PavilionStatuses_">
+            <EntityTypeMapping TypeName="PavilionModel.PavilionStatuses_">
+              <MappingFragment StoreEntitySet="PavilionStatuses$">
+                <ScalarProperty Name="PavilionStatusId" ColumnName="PavilionStatusId" />
+                <ScalarProperty Name="PavilionStatus" ColumnName="PavilionStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles_">
+            <EntityTypeMapping TypeName="PavilionModel.Roles_">
+              <MappingFragment StoreEntitySet="Roles$">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PavilionModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tenants_">
+            <EntityTypeMapping TypeName="PavilionModel.Tenants_">
+              <MappingFragment StoreEntitySet="Tenants$">
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="RentId" ColumnName="RentId" />
+                <ScalarProperty Name="TenantName" ColumnName="TenantName" />
+                <ScalarProperty Name="TenantPhone" ColumnName="TenantPhone" />
+                <ScalarProperty Name="TenantAddress" ColumnName="TenantAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MallsList">
+            <EntityTypeMapping TypeName="PavilionModel.MallsList">
+              <MappingFragment StoreEntitySet="MallsList">
+                <ScalarProperty Name="MallId" ColumnName="MallId" />
+                <ScalarProperty Name="MallName" ColumnName="MallName" />
+                <ScalarProperty Name="MallStatus" ColumnName="MallStatus" />
+                <ScalarProperty Name="PavilionsCount" ColumnName="PavilionsCount" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="BuildingCost" ColumnName="BuildingCost" />
+                <ScalarProperty Name="ValueAddedFactor" ColumnName="ValueAddedFactor" />
+                <ScalarProperty Name="LevelsCount" ColumnName="LevelsCount" />
+                <ScalarProperty Name="MallPicture" ColumnName="MallPicture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,51 @@
+﻿<Window x:Class="Pavilions.ManagerCWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pavilions"
+        mc:Ignorable="d"
+        Title="ManagerCWindow" Height="1080" Width="1920">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="202*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="red"/>
+        <ComboBox x:Name="CBFilter" Grid.Row="0" Width="300" Height="30" HorizontalAlignment="Left"  SelectionChanged="CBFilter_DataContextChanged" DisplayMemberPath="MallStatus"/>
+        <ComboBox x:Name="CBFilterCity" Grid.Row="0" Width="300" Height="30" HorizontalAlignment="Right"  SelectionChanged="CBFilterCity_DataContextChanged" DisplayMemberPath="CityName"/>
+        <DataGrid Grid.Row="1" x:Name ="MallsLV" CanUserResizeColumns="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер тц" Binding="{Binding MallId}" Width="70"/>
+                <DataGridTemplateColumn Header="Фото ТЦ" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding MallPicture}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Название тц" Binding="{Binding MallName}" Width="*"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding MallStatuses_.MallStatus}" Width="*"/>
+                <DataGridTextColumn Header="Кол-во павильонов" Binding="{Binding PavilionsCount}" Width="*"/>
+                <DataGridTextColumn Header="Город" Binding="{Binding Cities_.CityName}" Width="*"/>
+                <DataGridTextColumn Header="Стоимость постройки" Binding="{Binding BuildingCost}" Width="*"/>
+                <DataGridTextColumn Header="Этаж" Binding="{Binding LevelsCount}" Width="*"/>
+                <DataGridTextColumn Header="Коэффицент" Binding="{Binding ValueAddedFactor}" Width="*"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Перейти" x:Name="BtnNext" Width="150"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Button Grid.Row="0" Content="Удалить" HorizontalAlignment="Left" Margin="442,0,0,0" VerticalAlignment="Center" Width="199" Height="30" Click="DelButton_Click"/>
+        <Button Grid.Row="0" Content="Добавить" HorizontalAlignment="Left" Margin="703,0,0,40" VerticalAlignment="Bottom" Width="199" Height="30" Click="AddButton_Click"/>
+        <Button Content="Павильён" HorizontalAlignment="Left" Margin="936,0,0,0" VerticalAlignment="Center" Width="148" Height="30" Click="PavilionButton_Click"/>
+
+    </Grid>
+</Window>
